@@ -4,15 +4,26 @@ ZairECMA = function(dynaudioOptions) {
 };
 
 ZairECMA.prototype.play = function(note, octave) {
-  var frequency  = ZairECMA.noteFrequency(note, octave),
-      samples    = 44100 / frequency,
-      sampledata = Array(Math.round(samples));
+  var frequency  = Math.round(ZairECMA.noteFrequency(note, octave)),
+      samples    = ZairECMA.SAMPLE_RATE / frequency,
+      sampledata = Array(Math.floor(samples));
   
   for (var i=0; i < sampledata.length; i++)
     sampledata[i] = Math.sin(2*Math.PI * (i / sampledata.length));
   
   this._frequency = frequency;
   this._waveform  = sampledata;
+};
+
+ZairECMA.prototype.playTune = function(story) {
+  var self   = this,
+      offset = 0;
+  
+  for (var i = 0, n = story.length; i < n; i++)
+    (function(step) {
+      setTimeout(function() { self.play(step[1], step[2]) }, offset + step[0]);
+      offset += step[0];
+    })(story[i]);
 };
 
 ZairECMA.prototype._start = function() {
@@ -23,7 +34,7 @@ ZairECMA.prototype._start = function() {
         wave  = self._waveform,
         audio = self._dynamicAudio,
         n     = Math.ceil(freq / 100) * 2;
-
+    
     for (var i = 0; i < n; i++) audio.write(wave);
   }, 10);
 };
