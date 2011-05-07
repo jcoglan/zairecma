@@ -1,6 +1,6 @@
 ZairECMA = function(dynaudioOptions) {
   this._dynamicAudio = new DynamicAudio(dynaudioOptions);
-  this.play('C');
+  this._start();
 };
 
 ZairECMA.prototype.play = function(note, octave) {
@@ -13,25 +13,19 @@ ZairECMA.prototype.play = function(note, octave) {
   
   this._frequency = frequency;
   this._waveform  = sampledata;
-  
-  this._stop();
-  this._start();
 };
 
 ZairECMA.prototype._start = function() {
-  var freq  = this._frequency,
-      wave  = this._waveform,
-      audio = this._dynamicAudio;
-  
+  var self = this;
+
   this._playerInterval = setInterval(function() {
-    var n = Math.ceil(freq / 100) * 2;
+    var freq  = self._frequency,
+        wave  = self._waveform,
+        audio = self._dynamicAudio,
+        n     = Math.ceil(freq / 100) * 2;
+
     for (var i = 0; i < n; i++) audio.write(wave);
   }, 10);
-};
-
-ZairECMA.prototype._stop = function() {
-  if (this._playerInterval)
-    clearInterval(this._playerInterval);
 };
 
 ZairECMA.noteFrequency = function(note, octave) {
