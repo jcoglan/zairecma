@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>ZairECMA</title>
+    <script type="text/javascript" src="/vendor/dynamicaudio/build/dynamicaudio-min.js"></script>
+    <script type="text/javascript" src="/build/zairecma.js"></script>
+  </head>
+  
+  <body>
+    
+    <script type="text/javascript">
+      var zaire = new ZairECMA({swf: 'build/dynamicaudio.swf'});
+    </script>
+    
+    <a href="#" onclick="zaire.play('A'); return false">A</a>
+    <a href="#" onclick="zaire.play('G'); return false">G</a>
+    <a href="#" onclick="zaire.play('C'); return false">C</a>
+    <a href="#" onclick="zaire.play('D', 3); return false">D</a>
+    
+  </body>
+</html>

@@ -1,0 +1,6 @@
+[submodule "vendor/dynamicaudio"]
+	path = vendor/dynamicaudio
+	url = git://github.com/bfirsh/dynamicaudio.js.git
+[submodule "vendor/js.class"]
+	path = vendor/js.class
+	url = git://github.com/jcoglan/js.class.git
