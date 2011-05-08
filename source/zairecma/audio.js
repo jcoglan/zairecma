@@ -1,26 +1,26 @@
 ZairECMA.Audio = function(dynaudioOptions) {
   this._dynamicAudio = new DynamicAudio(dynaudioOptions);
-  this._waveform = [];
-  this._start();
+  this._waveform     = [];
+  this._needle       = 0;
+  
+  ZairECMA.Clock.bind(this);
 };
 
-ZairECMA.Audio.prototype.write = function(stream) {
-  this._dynamicAudio.write(stream);
+ZairECMA.Audio.prototype.write = function(samples) {
+  var wave = this._waveform;
+  if (wave.length === 0) return;
+  
+  var output = [];
+  while (output.length < samples * 2) {
+    output.push(wave[this._needle]); // L
+    output.push(wave[this._needle]); // R
+    this._needle = (this._needle + 1) % wave.length;
+  }
+  this._dynamicAudio.write(output);
 };
 
 ZairECMA.Audio.prototype.play = function(note, octave) {
-  if (note === null)
-    return this._waveform  = [];
-  
-  var frequency  = ZairECMA.noteFrequency(note, octave),
-      samples    = Math.round(ZairECMA.SAMPLE_RATE / frequency),
-      sampledata = [];
-  
-  for (var i=0; i < samples; i++)
-    sampledata[2*i] =
-    sampledata[2*i+1] = ZairECMA.Wave.square(i/samples);
-  
-  this._waveform  = sampledata;
+  this._waveform = ZairECMA.Wave.createSamples(note, octave, 'square');
 };
 
 ZairECMA.Audio.prototype.playTune = function(story, options) {
@@ -36,16 +36,4 @@ ZairECMA.Audio.prototype.playTune = function(story, options) {
   
   if (options.loop)
     setTimeout(function() { self.playTune(story, options) }, offset);
-};
-
-ZairECMA.Audio.prototype._start = function() {
-  var self = this;
-
-  this._playerInterval = setInterval(function() {
-    var wave  = self._waveform,
-        audio = self._dynamicAudio,
-        n     = Math.ceil((ZairECMA.SAMPLE_RATE / 100) / (wave.length/2 + 1));
-    
-    for (var i = 0; i < n; i++) audio.write(wave);
-  }, 10);
 };

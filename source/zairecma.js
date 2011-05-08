@@ -11,8 +11,7 @@ ZairECMA.noteFrequency = function(note, octave) {
   return frequency * Math.pow(2, shift);
 };
 
-ZairECMA.MIDDLE_A    = 440;
-ZairECMA.SAMPLE_RATE = 44100;
+ZairECMA.MIDDLE_A = 440;
 
 ZairECMA.NOTES = {
   'A' : 0,

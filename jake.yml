@@ -14,5 +14,6 @@ builds:
 packages:
   zairecma:
     - zairecma
+    - zairecma/clock
     - zairecma/audio
     - zairecma/wave
