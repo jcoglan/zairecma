@@ -18,26 +18,45 @@
     <script type="text/javascript">
       ZairECMA.swf = '/vendor/dynamicaudio/build/dynamicaudio.swf';
       
-      var tone = new ZairECMA.Tone({
+      var toneC = new ZairECMA.Tone({
         amplitude:  0.5,
         waveform:   'triangle',
-        note:       'C#',
+        note:       'C',
         octave:     3,
         am: {
           frequency:  2,
-          amplitude:  0,
+          amplitude:  0.5,
           waveform:   'triangle'
         },
         fm: {
-          frequency: 2,
-          amplitude: 0.0000001
+          frequency: 0.5,
+          amplitude: 0.00000007
         }
       });
-      
-      var controller = new ZairECMA.Controller(tone);
+      var controller = new ZairECMA.Controller(toneC);
       $('#tone-bank').append(controller.getHTML());
+      ZairECMA.Clock.bind(toneC);
       
-      ZairECMA.Clock.bind(tone);
+      var toneA = new ZairECMA.Tone({
+        amplitude:  0.5,
+        waveform:   'triangle',
+        note:       'A',
+        octave:     3
+      });
+      var controller = new ZairECMA.Controller(toneA);
+      $('#tone-bank').append(controller.getHTML());
+      ZairECMA.Clock.bind(toneA);
+      
+      $(document).keydown(function(event) {
+        var code = event.keyCode;
+        if (code === 90) return toneA.setNote('G', 3);
+        if (code === 88) return toneA.setNote('A', 4);
+        if (code === 67) return toneA.setNote('B', 4);
+        if (code === 86) return toneA.setNote('C', 4);
+        if (code === 66) return toneA.setNote('D', 4);
+        if (code === 78) return toneA.setNote('E', 4);
+        if (code === 77) return toneA.setNote('F', 4);
+      });
     </script>
     
   </body>

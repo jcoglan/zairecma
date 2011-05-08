@@ -1,4 +1,5 @@
 ZairECMA.Wave = function(options) {
+  options = options || {};
   this.frequency = options.frequency || 1;
   this.amplitude = options.amplitude || 0;
   this.waveform  = options.waveform  || 'sine';
