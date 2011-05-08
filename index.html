@@ -8,6 +8,7 @@
     <script type="text/javascript" src="/vendor/jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script>
     <link rel="stylesheet" href="/vendor/jquery-ui-1.8.12.custom/css/trontastic/jquery-ui-1.8.12.custom.css">
     <script type="text/javascript" src="/build/zairecma.js"></script>
+    <script type="text/javascript" src="/bayeux.js"></script>
     <link rel="stylesheet" href="/style.css">
   </head>
   
@@ -18,44 +19,65 @@
     <script type="text/javascript">
       ZairECMA.swf = '/vendor/dynamicaudio/build/dynamicaudio.swf';
       
-      var toneC = new ZairECMA.Tone({
-        amplitude:  0.5,
-        waveform:   'triangle',
+      var faye = new Faye.Client('/bayeux'),
+          tones = {};
+      
+      function makeTone(name, data) {
+        var tone = tones[name] = new ZairECMA.Tone(data);
+        var controller = new ZairECMA.Controller(tone);
+        $('#tone-bank').append(controller.getHTML());
+        ZairECMA.Clock.bind(tone);
+      }
+      
+      makeTone('bass', {
+        amplitude:  1.0,
+        waveform:   'sawtooth',
         note:       'C',
-        octave:     3,
+        octave:     2,
         am: {
           frequency:  2,
           amplitude:  0.5,
           waveform:   'triangle'
-        },
-        fm: {
-          frequency: 0.5,
-          amplitude: 0.00000007
         }
       });
-      var controller = new ZairECMA.Controller(toneC);
-      $('#tone-bank').append(controller.getHTML());
-      ZairECMA.Clock.bind(toneC);
-      
-      var toneA = new ZairECMA.Tone({
-        amplitude:  0.5,
-        waveform:   'triangle',
-        note:       'A',
-        octave:     3
+      makeTone('bass', {
+        amplitude:  1.0,
+        waveform:   'sine',
+        note:       'G',
+        octave:     1,
+        am: {
+          frequency:  6,
+          amplitude:  0.7,
+          waveform:   'square'
+        }
       });
-      var controller = new ZairECMA.Controller(toneA);
-      $('#tone-bank').append(controller.getHTML());
-      ZairECMA.Clock.bind(toneA);
+      
+      makeTone('melody', {
+        amplitude:  0.8,
+        waveform:   'square',
+        note:       'C',
+        octave:     3,
+        am: {
+          amplitude: 0.3,
+          frequency: 2
+        }
+      });
+      
+      faye.subscribe('/notes', function(message) {
+        var tone = tones[message.name],
+            code = message.code;
+        
+        if (code === 90) return tone.setNote('G', 2);
+        if (code === 88) return tone.setNote('A', 3);
+        if (code === 67) return tone.setNote('B', 3);
+        if (code === 86) return tone.setNote('C', 3);
+        if (code === 66) return tone.setNote('D', 3);
+        if (code === 78) return tone.setNote('E', 3);
+        if (code === 77) return tone.setNote('F', 3);
+      });
       
       $(document).keydown(function(event) {
-        var code = event.keyCode;
-        if (code === 90) return toneA.setNote('G', 3);
-        if (code === 88) return toneA.setNote('A', 4);
-        if (code === 67) return toneA.setNote('B', 4);
-        if (code === 86) return toneA.setNote('C', 4);
-        if (code === 66) return toneA.setNote('D', 4);
-        if (code === 78) return toneA.setNote('E', 4);
-        if (code === 77) return toneA.setNote('F', 4);
+        faye.publish('/notes', {name: 'melody', code: event.keyCode});
       });
     </script>
     

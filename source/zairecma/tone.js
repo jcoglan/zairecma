@@ -41,6 +41,7 @@ ZairECMA.Tone.prototype.setNote = function(note, octave) {
   this._frequency = ZairECMA.noteFrequency(this._note, this._octave);
   
   if (this._wave) this._wave.frequency = this._frequency;
+  if (this.controller) this.controller.setNote(note, octave);
 };
 
 ZairECMA.Tone.prototype.setWaveform = function(type) {

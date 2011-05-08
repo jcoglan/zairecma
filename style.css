@@ -5,18 +5,19 @@ html, body {
 
 .tone {
   background: #fff;
-  width: 200px;
+  width: 188px;
   position: relative;
   float: left;
   margin-right: 20px;
 }
 
 .tone h4 {
-  font-size: 180%;
+  font-size: 320%;
   font-weight: bold;
-  color: #444;
+  background: #f80046;
+  color: #fff;
   margin: 0;
-  padding: 20px 10px;
+  padding: 20px 10px 0;
   border-bottom: 1px solid #ccc;
 }
 

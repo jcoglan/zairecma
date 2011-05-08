@@ -1,5 +1,6 @@
 ZairECMA.Controller = function(tone) {
   this._tone = tone;
+  tone.controller = this;
 };
 
 ZairECMA.Controller.prototype.getHTML = function() {
@@ -44,6 +45,10 @@ ZairECMA.Controller.prototype.getHTML = function() {
   this._setupFrequencyModeration();
   
   return this._rootHTML;
+};
+
+ZairECMA.Controller.prototype.setNote = function(note, octave) {
+  this._noteDisplay.html(note + '<sup>' + octave + '</sup>');
 };
 
 ZairECMA.Controller.prototype._setupWaveform = function() {
