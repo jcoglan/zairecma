@@ -11,7 +11,7 @@ ZairECMA.Wave.prototype.valueAt = function(time) {
       x    = f * time,
       y    = x - Math.floor(x);
   
-  return wave(y);
+  return this.amplitude * wave(y);
 };
 
 ZairECMA.Wave.sine = function(x) {

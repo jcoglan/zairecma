@@ -53,5 +53,8 @@ ZairECMA.Tone.prototype.setAMAmplitude = function(amplitude) {
 };
 
 ZairECMA.Tone.prototype.valueAt = function(time) {
-  return this._am.valueAt(time) * this._wave.valueAt(time);
+  var base = this._wave.valueAt(time),
+      am   = this._am.valueAt(time);
+  
+  return base + am*base;
 };
