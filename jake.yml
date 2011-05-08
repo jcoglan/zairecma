@@ -15,5 +15,5 @@ packages:
   zairecma:
     - zairecma
     - zairecma/clock
-    - zairecma/audio
     - zairecma/wave
+    - zairecma/tone

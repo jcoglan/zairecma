@@ -12,18 +12,17 @@
   <body>
     
     <script type="text/javascript">
-      var zaire = new ZairECMA.Audio({swf: '/vendor/dynamicaudio/build/dynamicaudio.swf'});
+      ZairECMA.swf = '/vendor/dynamicaudio/build/dynamicaudio.swf';
+      
+      var tone = new ZairECMA.Tone({
+        amplitude:  0.5,
+        waveform:   'square',
+        note:       'A',
+        octave:     4
+      });
+      
+      ZairECMA.Clock.bind(tone);
     </script>
-    
-    <a href="#" onclick="zaire.play('A'); return false">A</a>
-    <a href="#" onclick="zaire.play('Ab', 3); return false">Ab</a>
-    <a href="#" onclick="zaire.play('C'); return false">C</a>
-    <a href="#" onclick="zaire.play('G'); return false">D</a>
-    
-    <br><br>
-    <a href="#" onclick="zaire.playTune(HAPPY_BIRTHDAY); return false">Happy birthday!</a>
-    <br><br>
-    <a href="#" onclick="zaire.playTune(THIRTEEN_BLUES, {loop: true}); return false">13 Blues</a>
     
   </body>
 </html>

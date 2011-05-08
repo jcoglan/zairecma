@@ -2,23 +2,25 @@ ZairECMA.Clock = {
   SAMPLE_RATE:    44100,
   TICK_INTERVAL:  10,
   
-  samples: [],
+  tones: [],
   
   start: function() {
-    var self = this;
+    var self     = this,
+        interval = this.TICK_INTERVAL,
+        time     = new Date().getTime();
     
     setInterval(function() {
-      var samples = self.samples,
-          i = samples.length;
+      var tones = self.tones,
+          i     = tones.length;
       
-      while (i--)
-        samples[i].write(self.SAMPLE_RATE * self.TICK_INTERVAL/1000);
+      time += interval;
+      while (i--) tones[i].outputTimeSlice(time / 1000, interval / 1000);
         
-    }, this.TICK_INTERVAL);
+    }, interval);
   },
   
-  bind: function(sample) {
-    this.samples.push(sample);
+  bind: function(tone) {
+    this.tones.push(tone);
   }
 };
 
