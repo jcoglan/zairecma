@@ -4,12 +4,15 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>ZairECMA</title>
     <script type="text/javascript" src="/vendor/dynamicaudio/build/dynamicaudio-src.js"></script>
+    <script type="text/javascript" src="/vendor/jquery-ui-1.8.12.custom/js/jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="/vendor/jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script>
+    <link rel="stylesheet" href="/vendor/jquery-ui-1.8.12.custom/css/trontastic/jquery-ui-1.8.12.custom.css">
     <script type="text/javascript" src="/build/zairecma.js"></script>
-    <script type="text/javascript" src="/lib/happy-birthday.js"></script>
-    <script type="text/javascript" src="/lib/13-blues.js"></script>
   </head>
   
   <body>
+    
+    <div id="tone-bank"></div>
     
     <script type="text/javascript">
       ZairECMA.swf = '/vendor/dynamicaudio/build/dynamicaudio.swf';
@@ -20,6 +23,9 @@
         note:       'A',
         octave:     4
       });
+      
+      var controller = new ZairECMA.Controller(tone);
+      $('#tone-bank').append(controller.getHTML());
       
       ZairECMA.Clock.bind(tone);
     </script>

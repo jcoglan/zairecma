@@ -27,7 +27,9 @@ ZairECMA.Tone.prototype.setAmplitude = function(amplitude) {
 
 
 ZairECMA.Tone.prototype.setNote = function(note, octave) {
-  this._frequency = ZairECMA.noteFrequency(note, octave);
+  this._note      = note;
+  this._octave    = octave || 4;
+  this._frequency = ZairECMA.noteFrequency(this._note, this._octave);
 };
 
 ZairECMA.Tone.prototype.setWaveform = function(type) {

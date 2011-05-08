@@ -17,3 +17,4 @@ packages:
     - zairecma/clock
     - zairecma/wave
     - zairecma/tone
+    - zairecma/controller
