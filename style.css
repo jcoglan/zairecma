@@ -1,0 +1,41 @@
+html, body {
+  background: #333;
+  font: 15px/1.4 FreeSans, Helvetica, Arial, sans-serif;
+}
+
+.tone {
+  background: #fff;
+  width: 200px;
+  position: relative;
+}
+
+.tone h4 {
+  font-size: 180%;
+  font-weight: bold;
+  color: #444;
+  margin: 0;
+  padding: 20px 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.tone .waveform {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.tone .slider {
+  float: left;
+  height: 200px;
+  margin-right: 8px;
+}
+
+.tone .volume, .tone .am {
+  float: left;
+  border-right: 1px solid #ccc;
+  padding: 10px 8px 20px;
+}
+
+.tone .footer {
+  clear: left;
+}

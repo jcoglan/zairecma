@@ -8,6 +8,7 @@
     <script type="text/javascript" src="/vendor/jquery-ui-1.8.12.custom/js/jquery-ui-1.8.12.custom.min.js"></script>
     <link rel="stylesheet" href="/vendor/jquery-ui-1.8.12.custom/css/trontastic/jquery-ui-1.8.12.custom.css">
     <script type="text/javascript" src="/build/zairecma.js"></script>
+    <link rel="stylesheet" href="/style.css">
   </head>
   
   <body>
@@ -19,9 +20,14 @@
       
       var tone = new ZairECMA.Tone({
         amplitude:  0.5,
-        waveform:   'square',
+        waveform:   'triangle',
         note:       'A',
-        octave:     4
+        octave:     4,
+        am: {
+          frequency:  4,
+          amplitude:  0.5,
+          waveform:   'sine'
+        }
       });
       
       var controller = new ZairECMA.Controller(tone);
