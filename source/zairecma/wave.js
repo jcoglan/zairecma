@@ -8,10 +8,12 @@ ZairECMA.Wave.prototype.valueAt = function(time) {
   var wave = ZairECMA.Wave[this.waveform],
       pi   = Math.PI,
       f    = this.frequency,
-      x    = f * time,
-      y    = x - Math.floor(x);
+      freq = (typeof f === 'number') ? f : f.valueAt(time),
+      x    = freq * time,
+      y    = x - Math.floor(x),
+      A    = this.amplitude;
   
-  return this.amplitude * wave(y);
+  return (this.base || 0) + A * wave(y);
 };
 
 ZairECMA.Wave.sine = function(x) {

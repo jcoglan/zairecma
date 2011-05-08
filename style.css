@@ -18,6 +18,11 @@ html, body {
   border-bottom: 1px solid #ccc;
 }
 
+.tone h5 {
+  margin: 0;
+  height: 30px;
+}
+
 .tone .waveform {
   position: absolute;
   top: 10px;
@@ -30,7 +35,7 @@ html, body {
   margin-right: 8px;
 }
 
-.tone .volume, .tone .am {
+.tone .volume, .tone .am, .tone .fm {
   float: left;
   border-right: 1px solid #ccc;
   padding: 10px 8px 20px;

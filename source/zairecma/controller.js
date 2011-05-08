@@ -29,13 +29,19 @@ ZairECMA.Controller.prototype.getHTML = function() {
           '<div class="slider frequency"></div>' +
           '<div class="slider amplitude"></div>' +
         '</div>' +
+        '<div class="fm">' +
+          '<h5>F.M.</h5>' +
+          '<div class="slider frequency"></div>' +
+          '<div class="slider amplitude"></div>' +
+        '</div>' +
         '<div class="footer"></div>' +
       '</div>');
   
   this._noteDisplay = this._rootHTML.find('h4');
   this._setupWaveform();
   this._setupVolume();
-  this._setupAplitudeModeration();
+  this._setupAmplitudeModeration();
+  this._setupFrequencyModeration();
   
   return this._rootHTML;
 };
@@ -58,7 +64,7 @@ ZairECMA.Controller.prototype._setupVolume = function() {
 	});
 };
 
-ZairECMA.Controller.prototype._setupAplitudeModeration = function() {
+ZairECMA.Controller.prototype._setupAmplitudeModeration = function() {
   var frequency = this._rootHTML.find('.am .frequency'),
       amplitude = this._rootHTML.find('.am .amplitude'),
       tone      = this._tone;
@@ -68,6 +74,19 @@ ZairECMA.Controller.prototype._setupAplitudeModeration = function() {
   });
   this._slider(amplitude, tone._am.amplitude * 100, function(value) {
     tone.setAMAmplitude(value / 100);
+  });
+};
+
+ZairECMA.Controller.prototype._setupFrequencyModeration = function() {
+  var frequency = this._rootHTML.find('.fm .frequency'),
+      amplitude = this._rootHTML.find('.fm .amplitude'),
+      tone      = this._tone;
+  
+  this._slider(frequency, tone._fm.frequency * 10, function(value) {
+    tone.setFMFrequency(value / 10);
+  });
+  this._slider(amplitude, tone._fm.amplitude * 1000000000, function(value) {
+    tone.setFMAmplitude(value / 1000000000);
   });
 };
 

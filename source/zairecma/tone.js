@@ -4,8 +4,11 @@ ZairECMA.Tone = function(options) {
   
   this.setNote(options.note, options.octave);
   
+  this._fm = new ZairECMA.Wave(options.fm);
+  this._fm.base = this._frequency;
+  
   this._wave = new ZairECMA.Wave({
-    frequency:  this._frequency,
+    frequency:  this._fm,
     amplitude:  options.amplitude,
     waveform:   options.waveform
   });
@@ -50,6 +53,14 @@ ZairECMA.Tone.prototype.setAMFrequency = function(frequency) {
 
 ZairECMA.Tone.prototype.setAMAmplitude = function(amplitude) {
   this._am.amplitude = amplitude;
+};
+
+ZairECMA.Tone.prototype.setFMFrequency = function(frequency) {
+  this._fm.frequency = frequency;
+};
+
+ZairECMA.Tone.prototype.setFMAmplitude = function(amplitude) {
+  this._fm.amplitude = amplitude;
 };
 
 ZairECMA.Tone.prototype.valueAt = function(time) {
